@@ -8,7 +8,8 @@ import dialogService from "../services/dialog.js";
 export default class SharedSwitchWidget extends SwitchWidget {
     isEnabled() {
         return super.isEnabled()
-            && !['root', '_share', '_hidden'].includes(this.noteId);
+            && !['root', '_share', '_hidden'].includes(this.noteId)
+            && !this.noteId.startsWith('_options');
     }
 
     doRender() {
@@ -20,7 +21,7 @@ export default class SharedSwitchWidget extends SwitchWidget {
         this.$switchOffName.text("Shared");
         this.$switchOffButton.attr("title", "Unshare the note");
 
-        this.$helpButton.attr("data-help-page", "Sharing").show();
+        this.$helpButton.attr("data-help-page", "sharing.html").show();
         this.$helpButton.on('click', e => utils.openHelp($(e.target)));
     }
 

@@ -72,7 +72,7 @@ async function openCustom(type, entityId, mime) {
             const terminal = terminals[index];
             if (!terminal) {
                 console.error('Open Note custom: No terminal found!');
-                open(getFileUrl(entityId), {url: true});
+                open(getFileUrl(type, entityId), {url: true});
                 return;
             }
             exec(`which ${terminal}`, (error, stdout, stderr) => {

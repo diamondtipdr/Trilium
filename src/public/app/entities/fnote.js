@@ -22,7 +22,8 @@ const NOTE_TYPE_ICONS = {
     "webView": "bx bx-globe-alt",
     "launcher": "bx bx-link",
     "doc": "bx bxs-file-doc",
-    "contentWidget": "bx bxs-widget"
+    "contentWidget": "bx bxs-widget",
+    "mindMap": "bx bx-sitemap"
 };
 
 /**

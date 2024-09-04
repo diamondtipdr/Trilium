@@ -73,10 +73,6 @@
     --mermaid-theme: dark;
 }
 
-body .global-menu-button {
-    background-image: url("../images/icon-grey.svg");
-}
-
 body ::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }

@@ -623,6 +623,10 @@ div[data-notify="container"] {
     background-color: var(--accented-background-color) !important;
 }
 
+.ck-content li p {
+    margin: 0 !important;
+}
+
 #options-dialog input[type=number] {
     text-align: right;
 }
@@ -684,6 +688,10 @@ a.external:not(.no-arrow):after, a[href^="http://"]:not(.no-arrow):after, a[href
 .toast-header {
     background-color: var(--more-accented-background-color) !important;
     color: var(--main-text-color) !important;
+}
+
+.toast-body {
+    white-space: preserve-breaks;
 }
 
 .ck-mentions .ck-button {
@@ -824,11 +832,6 @@ li.dropdown-submenu:hover > ul.dropdown-menu {
     transform: rotate(-90deg);
 }
 
-body {
-    /* FF basic styling */
-    scrollbar-color: var(--scrollbar-background-color) var(--main-background-color);
-}
-
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -919,6 +922,10 @@ body {
     background-color: var(--accented-background-color);
     padding: 10px;
     margin: 10px;
+}
+
+.help-dropdown code {
+    font-variant-ligatures: none;
 }
 
 #launcher-pane .launcher-button {

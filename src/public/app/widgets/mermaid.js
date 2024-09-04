@@ -1,6 +1,7 @@
 import libraryLoader from "../services/library_loader.js";
 import NoteContextAwareWidget from "./note_context_aware_widget.js";
 import server from "../services/server.js";
+import utils from "../services/utils.js";
 
 const TPL = `<div class="mermaid-widget">
     <style>
@@ -132,25 +133,12 @@ export default class MermaidWidget extends NoteContextAwareWidget {
         }
     }
 
-    async exportMermaidEvent({ntxId}) {
-        if (!this.isNoteContext(ntxId)) {
+    async exportSvgEvent({ntxId}) {
+        if (!this.isNoteContext(ntxId) || this.note.type !== "mermaid") {
             return;
         }
 
         const svg = await this.renderSvg();
-        this.download(`${this.note.title}.svg`, svg);
-    }
-
-    download(filename, text) {
-        const element = document.createElement('a');
-        element.setAttribute('href', `data:image/svg+xml;charset=utf-8,${encodeURIComponent(text)}`);
-        element.setAttribute('download', filename);
-
-        element.style.display = 'none';
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
+        utils.downloadSvg(this.note.title, svg);
     }
 }

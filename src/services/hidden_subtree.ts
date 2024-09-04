@@ -1,10 +1,10 @@
-import BAttribute = require("../becca/entities/battribute");
-import { AttributeType, NoteType } from "../becca/entities/rows";
+import BAttribute from "../becca/entities/battribute.js";
+import { AttributeType, NoteType } from "../becca/entities/rows.js";
 
-import becca = require('../becca/becca');
-import noteService = require('./notes');
-import log = require('./log');
-import migrationService = require('./migration');
+import becca from "../becca/becca.js";
+import noteService from "./notes.js";
+import log from "./log.js";
+import migrationService from "./migration.js";
 
 const LBTPL_ROOT = "_lbTplRoot";
 const LBTPL_BASE = "_lbTplBase";
@@ -362,7 +362,7 @@ function checkHiddenSubtreeRecursively(parentNoteId: string, item: Item) {
     }
 }
 
-export = {
+export default {
     checkHiddenSubtree,
     LBTPL_ROOT,
     LBTPL_BASE,

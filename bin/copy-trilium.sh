@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e  # Fail on any command error
 shopt -s globstar
 
 if [[ $# -eq 0 ]] ; then
@@ -35,26 +36,35 @@ for f in 'package.json' 'package-lock.json' 'README.md' 'LICENSE' 'config-sample
     cp "$f" "$DIR"/
 done
 
+# Patch package.json main
+sed -i 's/.\/dist\/electron.js/electron.js/g' "$DIR/package.json"
+
 script_dir=$(realpath $(dirname $0))
-cp -Rv "$script_dir/../build/src" "$DIR"
+cp -R "$script_dir/../build/src" "$DIR"
 cp "$script_dir/../build/electron.js" "$DIR"
 
 # run in subshell (so we return to original dir)
-(cd $DIR && npm install --only=prod)
+(cd $DIR && npm install --omit=dev)
 
 if [[ -d "$DIR"/node_modules ]]; then
-# cleanup of useless files in dependencies
-    for d in 'image-q/demo' 'better-sqlite3/Release' 'better-sqlite3/deps/sqlite3.tar.gz' '@jimp/plugin-print/fonts' 'jimp/browser' 'jimp/fonts'; do
-        [[ -e "$DIR"/node_modules/"$d" ]] && rm -rv "$DIR"/node_modules/"$d"
+    # cleanup of useless files in dependencies
+    for d in 'image-q/demo' \
+        '@excalidraw/excalidraw/dist/excalidraw-assets-dev' '@excalidraw/excalidraw/dist/excalidraw.development.js' '@excalidraw/excalidraw/dist/excalidraw-with-preact.development.js' \
+        'mermaid/dist/mermaid.js' \
+        'boxicons/svg' 'boxicons/node_modules/react'/* \
+        '@jimp/plugin-print/fonts' 'jimp/browser' 'jimp/fonts'; do
+        [[ -e "$DIR"/node_modules/"$d" ]] && rm -r "$DIR"/node_modules/"$d"
     done
 
-# delete all tests (there are often large images as test file for jimp etc.)
-    for d in 'test' 'docs' 'demo'; do
-        find "$DIR"/node_modules -name "$d" -exec rm -rf {} \;
+    # delete all tests (there are often large images as test file for jimp etc.)
+    for d in 'test' 'docs' 'demo' 'example'; do
+        find "$DIR"/node_modules -name "$d" -exec rm -rf {} +
     done
 fi
 
 find $DIR/libraries -name "*.map" -type f -delete
+find $DIR/node_modules -name "*.map" -type f -delete
+find $DIR -name "*.ts" -type f -delete
 
 d="$DIR"/src/public
 [[ -d "$d"/app-dist ]] || mkdir -pv "$d"/app-dist

@@ -1,9 +1,9 @@
 "use strict";
 
-import optionService = require('./options');
-import log = require('./log');
-import utils = require('./utils');
-import { KeyboardShortcut } from './keyboard_actions_interface';
+import optionService from "./options.js";
+import log from "./log.js";
+import utils from "./utils.js";
+import { KeyboardShortcut } from './keyboard_actions_interface.js';
 
 const isMac = process.platform === "darwin";
 const isElectron = utils.isElectron();
@@ -140,7 +140,7 @@ const DEFAULT_KEYBOARD_ACTIONS: KeyboardShortcut[] = [
         actionName: "editBranchPrefix",
         defaultShortcuts: ["F2"],
         description: "Show Edit branch prefix dialog",
-        scope: "window"
+        scope: "note-tree"
     },
     {
         actionName: "cloneNotesTo",
@@ -637,7 +637,7 @@ function getKeyboardActions() {
     return actions;
 }
 
-export = {
+export default {
     DEFAULT_KEYBOARD_ACTIONS,
     getKeyboardActions
 };

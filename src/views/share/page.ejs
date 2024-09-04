@@ -14,7 +14,7 @@
     <% } %>
     <script src="../<%= appPath %>/share.js"></script>
     <% if (!note.isLabelTruthy("shareOmitDefaultCss")) { %>
-        <link href="../<%= assetPath %>/libraries/normalize.min.css" rel="stylesheet">
+        <link href="../<%= assetPath %>/node_modules/normalize.css/normalize.css" rel="stylesheet">
         <link href="../<%= assetPath %>/stylesheets/share.css" rel="stylesheet">
     <% } %>
     <% if (note.type === 'text' || note.type === 'book') { %>

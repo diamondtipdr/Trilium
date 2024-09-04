@@ -42,7 +42,7 @@ export interface OptionRow {
     name: string;
     value: string;
     isSynced: boolean;
-    utcDateModified: string;
+    utcDateModified?: string;
 }
 
 export interface EtapiTokenRow {
@@ -69,7 +69,7 @@ export interface AttributeRow {
     noteId?: string;
     type: AttributeType;
     name: string;
-    position?: number;
+    position?: number | null;
     value?: string;
     isInheritable?: boolean;
     utcDateModified?: string;
@@ -91,7 +91,7 @@ export interface BranchRow {
  * end user. Those types should be used only for checking against, they are
  * not for direct use.
  */
-export const ALLOWED_NOTE_TYPES = [ "file", "image", "search", "noteMap", "launcher", "doc", "contentWidget", "text", "relationMap", "render", "canvas", "mermaid", "book", "webView", "code" ] as const;
+export const ALLOWED_NOTE_TYPES = [ "file", "image", "search", "noteMap", "launcher", "doc", "contentWidget", "text", "relationMap", "render", "canvas", "mermaid", "book", "webView", "code", "mindMap" ] as const;
 export type NoteType = typeof ALLOWED_NOTE_TYPES[number];
 
 export interface NoteRow {

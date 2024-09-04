@@ -14,6 +14,7 @@ const NOTE_TYPES = [
 
     { type: "text", mime: "text/html", title: "Text", selectable: true },
     { type: "relationMap", mime: "application/json", title: "Relation Map", selectable: true },
+    { type: "mindMap", mime: "application/json", "title": "Mind Map", selectable: true },
     { type: "render", mime: '', title: "Render Note", selectable: true },
     { type: "canvas", mime: 'application/json', title: "Canvas", selectable: true },
     { type: "mermaid", mime: 'text/mermaid', title: "Mermaid Diagram", selectable: true },
@@ -69,26 +70,33 @@ export default class NoteTypeWidget extends NoteContextAwareWidget {
         this.$noteTypeDropdown.empty();
 
         for (const noteType of NOTE_TYPES.filter(nt => nt.selectable)) {
-            const $typeLink = $('<a class="dropdown-item">')
-                .attr("data-note-type", noteType.type)
-                .append('<span class="check">&check;</span> ')
-                .append($('<strong>').text(noteType.title))
-                .on('click', e => {
-                    const type = $typeLink.attr('data-note-type');
-                    const noteType = NOTE_TYPES.find(nt => nt.type === type);
+            let $typeLink;
 
-                    this.save(noteType.type, noteType.mime);
-                });
+            if (noteType.type !== "code") {
+                $typeLink = $('<a class="dropdown-item">')
+                    .attr("data-note-type", noteType.type)
+                    .append('<span class="check">&check;</span> ')
+                    .append($('<span>').text(noteType.title))
+                    .on('click', e => {
+                        const type = $typeLink.attr('data-note-type');
+                        const noteType = NOTE_TYPES.find(nt => nt.type === type);
 
+                        this.save(noteType.type, noteType.mime);
+                    });
+            } else {
+                this.$noteTypeDropdown
+                    .append('<div class="dropdown-divider"></div>');
+                $typeLink = $('<a class="dropdown-item disabled">')
+                    .attr("data-note-type", noteType.type)
+                    .append('<span class="check">&check;</span> ')
+                    .append($('<strong>').text(noteType.title));
+            }
+        
             if (this.note.type === noteType.type) {
                 $typeLink.addClass("selected");
             }
 
             this.$noteTypeDropdown.append($typeLink);
-
-            if (noteType.type !== 'code') {
-                this.$noteTypeDropdown.append('<div class="dropdown-divider"></div>');
-            }
         }
 
         for (const mimeType of await mimeTypesService.getMimeTypes()) {

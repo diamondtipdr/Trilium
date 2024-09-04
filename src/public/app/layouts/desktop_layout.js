@@ -69,7 +69,7 @@ import ConfirmDialog from "../widgets/dialogs/confirm.js";
 import PromptDialog from "../widgets/dialogs/prompt.js";
 import FloatingButtons from "../widgets/floating_buttons/floating_buttons.js";
 import RelationMapButtons from "../widgets/floating_buttons/relation_map_buttons.js";
-import MermaidExportButton from "../widgets/floating_buttons/mermaid_export_button.js";
+import SvgExportButton from "../widgets/floating_buttons/svg_export_button.js";
 import LauncherContainer from "../widgets/containers/launcher_container.js";
 import RevisionsButton from "../widgets/buttons/revisions_button.js";
 import CodeButtonsWidget from "../widgets/floating_buttons/code_buttons.js";
@@ -163,7 +163,7 @@ export default class DesktopLayout {
                                         .child(new CodeButtonsWidget())
                                         .child(new RelationMapButtons())
                                         .child(new CopyImageReferenceButton())
-                                        .child(new MermaidExportButton())
+                                        .child(new SvgExportButton())
                                         .child(new BacklinksWidget())
                                         .child(new HideFloatingButtonsButton())
                                     )

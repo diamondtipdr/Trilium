@@ -1,6 +1,14 @@
 name: Dev
 on:
   push:
+    branches-ignore:
+      - 'develop'
+      - 'feature/update**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build_docker:
     name: Build Docker image
@@ -10,7 +18,7 @@ jobs:
       - name: Set up node & dependencies
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
       - run: npm ci    
       - name: Run the TypeScript build

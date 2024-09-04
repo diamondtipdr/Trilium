@@ -218,6 +218,10 @@ export default class FindWidget extends NoteContextAwareWidget {
      * @returns {Promise<void>}
      */
     async findNext(direction) {
+        if (this.$totalFound.text()=="?"){
+            await this.performFind();
+            return
+        }
         const searchTerm = this.$input.val();
         if (waitForEnter && this.searchTerm !== searchTerm) {
             await this.performFind();
@@ -271,5 +275,11 @@ export default class FindWidget extends NoteContextAwareWidget {
 
     isEnabled() {
         return super.isEnabled() && ['text', 'code', 'render'].includes(this.note.type);
+    }
+
+    async entitiesReloadedEvent({loadResults}) {
+        if (loadResults.isNoteContentReloaded(this.noteId)) {
+            this.$totalFound.text("?")  
+        } 
     }
 }

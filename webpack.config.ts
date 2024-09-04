@@ -1,7 +1,9 @@
-import path = require('path');
-import assetPath = require('./src/services/asset_path');
+import { fileURLToPath } from "url";
+import path from "path";
+import assetPath from "./src/services/asset_path.js";
 
-module.exports = {
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
+export default {
     mode: 'production',
     entry: {
         setup: './src/public/app/setup.js',
@@ -10,7 +12,7 @@ module.exports = {
     },
     output: {
         publicPath: `${assetPath}/app-dist/`,
-        path: path.resolve(__dirname, 'src/public/app-dist'),
+        path: path.resolve(rootDir, 'src/public/app-dist'),
         filename: '[name].js',
     },
     devtool: 'source-map',
